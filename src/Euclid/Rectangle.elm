@@ -9,6 +9,8 @@ module Euclid.Rectangle exposing (..)
 # Properties
 @docs width, height, left, right, top, bottom, opposite
 
+# Misc
+@docs hasPoint
 -}
 
 
@@ -56,3 +58,8 @@ bottom = opposite >> .y
 {-| Opposite corner of a rectangle (bottom right) -}
 opposite : Rectangle number -> Vector number
 opposite rec = Vec.add rec.corner rec.size
+
+
+{-| Does the rectangle contain the point -}
+hasPoint : Rectangle comparable -> Vector comparable -> Bool
+hasPoint rec p = (left rec <= p.x) && (p.x < right rec) && (top rec <= p.y) && (p.y < bottom rec)
