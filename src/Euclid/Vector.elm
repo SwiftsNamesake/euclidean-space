@@ -14,7 +14,7 @@ module Euclid.Vector exposing (..)
 @docs add, subtract, negate, conjugate
 
 # Transform
-@docs map, map2, dotwise, fold
+@docs map, map2, dotwise, fold, x, y
 
 -}
 
@@ -45,9 +45,9 @@ negate : Vector number -> Vector number
 negate = map (\n -> -n)
 
 
-{-| Conjugate -}
+{-| The complex conjugate (Y component is negated) -}
 conjugate : Vector number -> Vector number
-conjugate v = vec (v.x) (-v.y)
+conjugate = y (\n -> -n)
 
 
 {-| Apply some function to each component -}
@@ -68,3 +68,12 @@ dotwise f a b = vec (f a.x b.x) (f a.y b.y)
 {-| Reduce a Vector to a single value by applying some function to its components -}
 fold : (a -> a -> b) -> Vector a -> b
 fold f v = f (v.x) (v.y)
+
+
+{-| Apply some function to the X component -}
+x : (a -> a) -> Vector a -> Vector a
+x f v = vec (f v.x) v.y
+
+{-| Apply some function to the y component -}
+y : (a -> a) -> Vector a -> Vector a
+y f v = vec v.x (f v.y)
