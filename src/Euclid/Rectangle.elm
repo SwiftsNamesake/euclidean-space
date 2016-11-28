@@ -1,7 +1,15 @@
 -- A rectangle
 
-module Euclid.Vector exposing (..)
-{-| -}
+module Euclid.Rectangle exposing (..)
+{-| Defines a Rectangle type
+
+# Types
+@docs Rectangle
+
+# Properties
+@docs width, height, left, right, top, bottom, opposite
+
+-}
 
 
 import Euclid.Vector as Vec
@@ -10,7 +18,8 @@ import Euclid.Vector exposing (Vector)
 
 -- Types -----------------------------------------------------------------------------------------------------------------------------------
 
-type alias Rectangle n = { corner : Vector n,  }
+{-| A polymorphic rectangle defined by its top left corner and its size -}
+type alias Rectangle n = { corner : Vector n, size : Vector n }
 
 -- Definitions -----------------------------------------------------------------------------------------------------------------------------
 
@@ -30,15 +39,20 @@ left = .corner >> .x
 
 
 {-| Right side of a rectangle -}
-right : Rectangle n -> n
+right : Rectangle number -> number
 right = opposite >> .x
 
 
+{-| Top side of a rectangle -}
+top : Rectangle number -> number
+top = .corner >> .y
+
+
 {-| Bottom side of a rectangle -}
-bottom : Rectangle n -> n
+bottom : Rectangle number -> number
 bottom = opposite >> .y
 
 
 {-| Opposite corner of a rectangle (bottom right) -}
-opposite : Rectangle n -> Vector n
-opposite rec = addVectors rec.corner rec.size
+opposite : Rectangle number -> Vector number
+opposite rec = Vec.add rec.corner rec.size
