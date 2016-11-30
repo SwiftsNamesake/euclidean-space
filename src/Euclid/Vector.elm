@@ -95,12 +95,12 @@ map f v = vec (f v.x) (f v.y)
 
 
 {-| See 'dotwise' -}
-map2 : (a -> a -> b) -> V2 a -> V2 a -> V2 b
+map2 : (a -> b -> c) -> V2 a -> V2 b -> V2 c
 map2 = dotwise
 
 
 {-| Apply some function to two vectors component-wise (like map for two vectors)  -}
-dotwise : (a -> a -> b) -> V2 a -> V2 a -> V2 b
+dotwise : (a -> b -> c) -> V2 a -> V2 b -> V2 c
 dotwise f a b = vec (f a.x b.x) (f a.y b.y)
 
 
