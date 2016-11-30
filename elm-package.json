@@ -1,5 +1,5 @@
 {
-    "version": "1.0.0",
+    "version": "2.0.0",
     "summary": "Types and functions in for working with euclidean geometry",
     "repository": "https://github.com/SwiftsNamesake/euclidean-space.git",
     "license": "BSD3",
