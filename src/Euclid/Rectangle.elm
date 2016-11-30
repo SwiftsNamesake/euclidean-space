@@ -15,51 +15,51 @@ module Euclid.Rectangle exposing (..)
 
 
 import Euclid.Vector as Vec
-import Euclid.Vector exposing (Vector)
+import Euclid.Vector exposing (V2, HasX, HasY, HasZ, HasXY, HasXYZ)
 
 
 -- Types -----------------------------------------------------------------------------------------------------------------------------------
 
 {-| A polymorphic rectangle defined by its top left corner and its size -}
-type alias Rectangle n = { corner : Vector n, size : Vector n }
+type alias Rectangle v = { corner : v, size : v }
 
 -- Definitions -----------------------------------------------------------------------------------------------------------------------------
 
 {-| Width of a rectangle -}
-width : Rectangle n -> n
-width = (.size) >> (.x)
+width : Rectangle (HasX v n) -> n
+width = .size >> (.x)
 
 
 {-| Height of a rectangle -}
-height : Rectangle n -> n
-height = (.size) >> (.y)
+height : Rectangle (HasY v n) -> n
+height = .size >> (.y)
 
 
 {-| Left side of a rectangle -}
-left : Rectangle n -> n
+left : Rectangle (HasX v n) -> n
 left = .corner >> .x
 
 
 {-| Right side of a rectangle -}
-right : Rectangle number -> number
+right : Rectangle (V2 number) -> number
 right = opposite >> .x
 
 
 {-| Top side of a rectangle -}
-top : Rectangle number -> number
+top : Rectangle (V2 number) -> number
 top = .corner >> .y
 
 
 {-| Bottom side of a rectangle -}
-bottom : Rectangle number -> number
+bottom : Rectangle (V2 number) -> number
 bottom = opposite >> .y
 
 
 {-| Opposite corner of a rectangle (bottom right) -}
-opposite : Rectangle number -> Vector number
+opposite : Rectangle (V2 number) -> V2 number
 opposite rec = Vec.add rec.corner rec.size
 
 
-{-| Does the rectangle contain the point -}
-hasPoint : Rectangle comparable -> Vector comparable -> Bool
+{-| Does the rectangle contain the point? -}
+hasPoint : Rectangle (V2 comparable) ->  V2 comparable -> Bool
 hasPoint rec p = (left rec <= p.x) && (p.x < right rec) && (top rec <= p.y) && (p.y < bottom rec)
